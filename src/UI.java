@@ -84,7 +84,8 @@ public class UI {
                 break;
 
             case 7:
-                System.out.println("Ending the program");
+                System.out.println("Ending the program...");
+                System.exit(0);
                 break;
 
             default:

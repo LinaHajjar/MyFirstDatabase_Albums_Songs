@@ -5,12 +5,22 @@ public class Tracks {
     private String track_name;
     private Time track_duration;
     private int album_id;
+    private String artist_name;
 
-    public Tracks(int track_id, String track_name, Time track_duration, int album_id) {
+    public Tracks(int track_id, String track_name, Time track_duration, int album_id, String artist_name) {
         this.track_id = track_id;
         this.track_name = track_name;
         this.track_duration = track_duration;
         this.album_id = album_id;
+        this.artist_name = artist_name;
+    }
+
+    public String getArtist_name() {
+        return artist_name;
+    }
+
+    public void setArtist_name(String artist_name) {
+        this.artist_name = artist_name;
     }
 
     public int getTrack_id() {
@@ -46,7 +56,7 @@ public class Tracks {
     }
 
     public String toString() {
-        return ("Track_id= " + track_id + "\nTrack_name= " + track_name +"\nTrack_duration= " + track_duration + "\nAlbum_id= " + album_id+ "\n");
+        return ("Track_id= " + track_id + "\nTrack_name= " + track_name +"\nTrack_duration= " + track_duration + "\nAlbum_id= " + album_id+ "\nArttist_name= " + artist_name +"\n");
     }
 
 }
