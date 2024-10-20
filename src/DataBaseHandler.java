@@ -273,6 +273,75 @@ public class DataBaseHandler {
         }else{
             return;
         }
-
     }// end of add_artist
+
+    public static void add_album(Scanner input) throws SQLException {
+        System.out.println("Generating a new album_id:...");
+
+        System.out.println("what is the name of the new album? ");
+        String album_name = input.nextLine();
+
+        System.out.println("what is the name of the artist? ");
+        String artist_name = input.nextLine();
+
+        System.out.println("what is the company name? ");
+        String company_name = input.nextLine();
+
+        System.out.println("what is the date of publication? year-month-day: ");
+        LocalDate date_of_publication = LocalDate.parse(input.nextLine());
+
+
+        /*
+
+    // Retrieve artist_id
+
+    // Retrieve company_id
+    */
+
+        try {
+            con = DriverManager.getConnection(DATABASE_URL, user, password);
+            Statement s = con.createStatement();
+
+            // Retrieve artist_id:
+            ResultSet srArtist = s.executeQuery("SELECT artist_id FROM artist WHERE artist_name = '" + artist_name + "'  ");
+            int artist_id = 0;
+            if (srArtist.next()) {
+                artist_id = srArtist.getInt("artist_id");
+            } else {
+                System.out.println("Artist not found.");
+                return;
+            }
+            srArtist.close();
+
+            // Retrieve company_id
+            ResultSet srCompany = s.executeQuery("SELECT company_id FROM record_company WHERE company_name = '" + company_name + "'");
+            int company_id = 0;
+            if (srCompany.next()) {
+                company_id = srCompany.getInt("company_id");
+            } else {
+                System.out.println("Company not found.");
+                return;
+            }
+            srCompany.close();
+
+            int addingRow = s.executeUpdate("INSERT INTO album (album_name, artist_id, company_id, date_of_publication)\n" +
+                    "VALUES ('" +album_name + "', "+ artist_id +" , "+ company_id +" ,'"+date_of_publication+"')");
+
+            System.out.println("succesfully added the new album's information to the database");
+
+        } catch (SQLException sqlex) {
+            System.out.println("SQL Error: " + sqlex.getMessage());
+            con.close();
+        }
+
+        System.out.println("do you want to add another artist? yes/no");
+        String answer = input.nextLine();
+        if (UserInput.containsIgnoreCase("yes", answer)) {
+            add_album(input);
+        }else{
+            return;
+        }
+    }// end of add_artist
+
+
 }

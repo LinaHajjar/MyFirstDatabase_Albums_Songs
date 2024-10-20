@@ -43,7 +43,7 @@ public class UI {
                 hovedMenu(input);
                 break;
 
-            case 3:
+            case 3: //DONE
                 System.out.println("you chose option 3: add an artist.");
                 DataBaseHandler.add_artist(input);
 
@@ -53,9 +53,9 @@ public class UI {
                 hovedMenu(input);
                 break;
 
-            case 4:
+            case 4: //DONE, missing: check if the entered artist and entered company exist in the database? if not, call the methods: DataBaseHandler.add_artist(input); and DataBaseHandler.add_company(input);:TO DO
                 System.out.println("you chose option 4: add an album.");
-
+                DataBaseHandler.add_album(input);
 
                 System.out.println();
                 System.out.println("Returning to the main menu:");
@@ -75,7 +75,6 @@ public class UI {
 
             case 6:
                 System.out.println("you chose option 6: edit a track.");
-
 
                 System.out.println();
                 System.out.println("Returning to the main menu:");
