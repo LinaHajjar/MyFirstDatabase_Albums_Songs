@@ -1,5 +1,6 @@
 import javax.sound.midi.Track;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +26,6 @@ public class DataBaseHandler {
         String track_name = null;
         Time track_duration = null;
         int album_id = 0;
-        //new
         String artist_name = null;
         Tracks track;
         ArrayList<Tracks> tracks =new ArrayList<>();
@@ -44,18 +44,12 @@ public class DataBaseHandler {
                 track = new Tracks(track_id, track_name, track_duration, album_id, artist_name);
                 tracks.add(track);
             }
-            //s.close();
-            //con.close();
         } catch (SQLException sqlex) {
             System.out.println(sqlex.getMessage());
             con.close();
         }
 
-        /*for(Tracks t: tracks){
-            System.out.println(t.toString());
-        }*/
-
-        System.out.println("How do you want to see the tracks' list ordered?");
+        System.out.println("How do you want to see the tracks' list order?");
         System.out.println("1. By alphabetical order according to the tracks' names");
         System.out.println("2. By the tracks's duration");
         System.out.println("3. See all the tracks for a specific artist");
@@ -138,4 +132,109 @@ public class DataBaseHandler {
         }// end switch
 
     }// end of seeListTracks
+
+    public static void seeListArtists (Scanner input) throws SQLException {
+
+        int artist_id = 0;
+        String artist_name = null;
+        String artist_origin_country = null;
+        ArtistGender artist_gender = null;
+        LocalDate artist_date_of_birth = null;
+
+        Artist artist;
+        ArrayList<Artist> artists = new ArrayList<>();
+
+        try {
+            con = DriverManager.getConnection(DATABASE_URL, user, password);
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM artist");
+
+            while (rs.next()) {
+                artist_id = rs.getInt("artist_id");
+                artist_name = rs.getString("artist_name");
+                artist_origin_country = rs.getString("artist_origin_country");
+                artist_gender = ArtistGender.valueOf(rs.getString("artist_gender"));
+                artist_date_of_birth = rs.getDate("artist_date_of_birth").toLocalDate();
+                artist = new Artist(artist_id, artist_name, artist_date_of_birth, artist_gender, artist_origin_country);
+                artists.add(artist);
+            }
+        } catch (SQLException sqlex) {
+            System.out.println(sqlex.getMessage());
+            con.close();
+        }
+
+        System.out.println("How do you want to see the artists' list order?");
+        System.out.println("1. By their ID");
+        System.out.println("2. By the alphabetic order of the artists' names");
+        System.out.println("3. By their date of birth");
+        int choice = UserInput.getIntInput("choose the option: ", "wrong input, choose only an integer between 1 and 3", 1, 3);
+        String answer;
+
+        switch (choice) {
+            case 1: //by their ID
+
+                for (Artist a : artists) {
+                    System.out.println(a.toString());
+                }
+
+                System.out.println("do you want to see the artists' list ordered in another way? yes/no");
+                answer = input.nextLine();
+                if (UserInput.containsIgnoreCase("yes", answer)) {
+                    seeListArtists(input);
+                } else {
+                    System.out.println("returning to the main menu: ");
+                    UI.hovedMenu(input);
+                }
+
+                break;
+
+            case 2: //by alphabetic order of the artists' names
+                Collections.sort(artists, (artist1, artist2) -> artist1.getArtist_name().compareTo(artist2.getArtist_name()));
+                System.out.println("Artists sorted by alphabetical order:");
+                for (Artist a: artists) {
+                    System.out.println(a.toString());
+                }
+
+                System.out.println("do you want to see the tracks' list ordered in another way? yes/no");
+                answer=input.nextLine();
+                if(UserInput.containsIgnoreCase("yes", answer)){
+                    seeListArtists(input);
+                }else{
+                    System.out.println("returning to the main menu: ");
+                    UI.hovedMenu(input);
+                }
+                break;
+
+            case 3: //by their dates of birth
+                Collections.sort(artists, (artist1, artist2) -> artist1.getArtist_date_of_birth().compareTo(artist2.getArtist_date_of_birth()));
+                System.out.println("Artists sorted by date of birth:");
+                for (Artist a: artists) {
+                    System.out.println(a.toString());
+                }
+
+                for (Artist a: artists) {
+                    System.out.println(a.toString());
+                }
+
+                System.out.println("do you want to see the tracks' list ordered in another way? yes/no");
+                answer = input.nextLine();
+                if (UserInput.containsIgnoreCase("yes", answer)) {
+                    seeListArtists(input);
+                } else {
+                    System.out.println("returning to the main menu: ");
+                    UI.hovedMenu(input);
+                }
+
+                break;
+
+            default:
+                System.out.println("wrong input, choose only an integer between 1 and 3");
+                seeListTracks(input);
+                break;
+
+        }// end switch*/
+
+
+    }// end of seeListArtists
+
 }

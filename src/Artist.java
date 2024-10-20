@@ -7,12 +7,12 @@ public class Artist {
     private ArtistGender artist_gender;
     private LocalDate artist_date_of_birth;
 
-    public Artist(int artist_id, LocalDate artist_date_of_birth, ArtistGender artist_gender, String artist_origin_country, String artist_name) {
+    public Artist(int artist_id, String artist_name, LocalDate artist_date_of_birth, ArtistGender artist_gender, String artist_origin_country) {
         this.artist_id = artist_id;
+        this.artist_name = artist_name;
         this.artist_date_of_birth = artist_date_of_birth;
         this.artist_gender = artist_gender;
         this.artist_origin_country = artist_origin_country;
-        this.artist_name = artist_name;
     }
 
     public int getArtist_id() {
@@ -54,4 +54,9 @@ public class Artist {
     public void setArtist_date_of_birth(LocalDate artist_date_of_birth) {
         this.artist_date_of_birth = artist_date_of_birth;
     }
+
+    public String toString() {
+        return ("Artist_id= " + artist_id + "\nArtist_name= " + artist_name +"\nArtist_origin_country= " + artist_origin_country + "\nArtist_gender= " + artist_gender+ "\nArtist_date_of_birth= " + artist_date_of_birth+"\n");
+    }
+
 }

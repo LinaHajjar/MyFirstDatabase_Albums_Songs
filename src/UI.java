@@ -22,7 +22,7 @@ public class UI {
         int choice = UserInput.getIntInput("choose the option: ","wrong input, choose only an integer between 1 and 7",1,7);
 
         switch(choice){
-            case 1: // mangler: sorted by name, with specific duration, for a specific artist
+            case 1: // DONE
                 System.out.println("you chose option 1: See the list of all tracks sorted by name.");
                 System.out.println();
                 DataBaseHandler.seeListTracks(input);
@@ -33,9 +33,9 @@ public class UI {
                 hovedMenu(input);
                 break;
 
-            case 2:
+            case 2: // DONE
                 System.out.println("you chose option 2: See the list of artists.");
-
+                DataBaseHandler.seeListArtists(input);
 
                 System.out.println();
                 System.out.println("Returning to the main menu:");

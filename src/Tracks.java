@@ -56,7 +56,7 @@ public class Tracks {
     }
 
     public String toString() {
-        return ("Track_id= " + track_id + "\nTrack_name= " + track_name +"\nTrack_duration= " + track_duration + "\nAlbum_id= " + album_id+ "\nArttist_name= " + artist_name +"\n");
+        return ("Track_id= " + track_id + "\nTrack_name= " + track_name +"\nTrack_duration= " + track_duration + "\nAlbum_id= " + album_id+ "\nArtist_name= " + artist_name +"\n");
     }
 
 }

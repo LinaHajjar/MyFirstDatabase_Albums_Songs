@@ -1,4 +1,4 @@
 public enum ArtistGender {
-    FEMALE,
-    MALE,
+    female,
+    male,
 }
