@@ -231,10 +231,48 @@ public class DataBaseHandler {
                 System.out.println("wrong input, choose only an integer between 1 and 3");
                 seeListTracks(input);
                 break;
-
         }// end switch*/
-
-
     }// end of seeListArtists
 
+    public static void add_artist(Scanner input) throws SQLException {
+        System.out.println("Generating a new artist_id:...");
+
+        System.out.println("what is the name of the new artist? ");
+        String artist_name = input.nextLine();
+        System.out.println("what is the origin country of the artist? ");
+        String artist_origin_country = input.nextLine();
+        System.out.println("what is his gender: male / female ? ");
+        String gender = input.nextLine();
+        String artist_gender = null;
+        if ("male".equalsIgnoreCase(gender)){
+            artist_gender="male";
+        }else {
+            artist_gender="female";
+        }
+
+        System.out.println("what is the date of birth of the artist? year-month-day: ");
+        LocalDate artist_date_of_birth = LocalDate.parse(input.nextLine());
+
+            try {
+                con = DriverManager.getConnection(DATABASE_URL, user, password);
+                Statement s = con.createStatement();
+                int addingRow = s.executeUpdate("INSERT INTO artist (artist_name, artist_origin_country, artist_gender, artist_date_of_birth)\n" +
+                        "VALUES ('" +artist_name + "', '" + artist_origin_country +"', '" +artist_gender+ "','"+artist_date_of_birth+"')");
+
+                System.out.println("succesfully added the new artist's information to the database");
+
+            } catch (SQLException sqlex) {
+                System.out.println("SQL Error: " + sqlex.getMessage());
+                con.close();
+            }
+
+        System.out.println("do you want to add another artist? yes/no");
+        String answer = input.nextLine();
+        if (UserInput.containsIgnoreCase("yes", answer)) {
+            add_artist(input);
+        }else{
+            return;
+        }
+
+    }// end of add_artist
 }

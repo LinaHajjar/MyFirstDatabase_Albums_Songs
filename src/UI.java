@@ -45,7 +45,7 @@ public class UI {
 
             case 3:
                 System.out.println("you chose option 3: add an artist.");
-
+                DataBaseHandler.add_artist(input);
 
                 System.out.println();
                 System.out.println("Returning to the main menu:");
